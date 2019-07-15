@@ -9,5 +9,7 @@ namespace TankWars.Models
 		}
 
 		public DbSet<Tank> Tanks { get; set; }
+		public DbSet<Battle> Battles { get; set; }
+		public DbSet<Match> Matches { get; set; }
 	}
 }
