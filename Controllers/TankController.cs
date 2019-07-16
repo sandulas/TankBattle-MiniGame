@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,27 +21,7 @@ namespace TankWars.Controllers
 		[HttpGet]
 		public ActionResult<string> Welcome()
 		{
-			//Battle battle = new Battle("Battle 2", new int[] { 1, 2 }, new int[] { 1 });
-
-			//Tank tank1 = _dbContext.Tanks.Find(1);
-			//Tank tank2 = _dbContext.Tanks.Find(2);
-			//Tank x = new Tank("asdfa", 33, 27, 56, 34);
-
-			//Match match1 = new Match(battle, tank1, tank2, 1);
-			//Match match2 = new Match(battle, tank1, tank2, 2);
-
-			//_dbContext.Battles.Add(battle);
-			//_dbContext.Matches.Add(match1);
-			//_dbContext.Matches.Add(match2);
-
-			//_dbContext.SaveChanges();
-
-
-			return $@"Welcome to the Tank API. Operations:
-- POST /tank
-- GET /tank/list
-- GET /tank/id
-- DELETE /tank/id";
+			return $@"Welcome to the Tank API.";
 		}
 
 		// POST api/tank

@@ -24,39 +24,66 @@ namespace TankWars.Controllers
 		[HttpGet]
 		public ActionResult<string> Welcome()
 		{
-			return $@"Welcome to the Battle API. Operations:
-- POST /battle/simulate
-- GET /battle/list
-- GET /battle/id";
+			return $@"Welcome to the Battle API.";
 		}
 
 		// POST api/battle/simulate
 		[HttpPost("simulate")]
-		public async Task<ActionResult<Battle>> SimulateBattle(Battle battle)
+		public async Task<ActionResult<BattleRequest>> SimulateBattle(BattleRequest battleRequest)
 		{
+			foreach (int tankId in battleRequest.Team1TankIds)
+			{
+				if (await _dbContext.Tanks.FindAsync(tankId) == null) return NotFound(new { tankId });
+			}
+
+			foreach (int tankId in battleRequest.Team2TankIds)
+			{
+				if (await _dbContext.Tanks.FindAsync(tankId) == null) return NotFound(new { tankId });
+			}
+
+			Battle battle = new Battle(battleRequest.Name);
+
 			_dbContext.Battles.Add(battle);
 			await _dbContext.SaveChangesAsync();
 
-			return CreatedAtAction(nameof(GetBattle), new { id = battle.Id }, battle);
+			Match match1 = new Match(battle.Id, battleRequest.Team1TankIds[0], battleRequest.Team2TankIds[0], 1);
+			Match match2 = new Match(battle.Id, battleRequest.Team1TankIds[0], battleRequest.Team2TankIds[0], 1);
+
+			_dbContext.Matches.Add(match1);
+			_dbContext.Matches.Add(match2);
+			await _dbContext.SaveChangesAsync();
+
+			return CreatedAtAction(nameof(GetBattleResult), new { id = battle.Id }, battle);
 		}
 
-		// GET api/tank/list
-		//[HttpGet("list")]
-		//public async Task<ActionResult<IEnumerable<Tank>>> GetTankList()
-		//{
-		//	return await _dbContext.Tanks.ToListAsync();
-		//}
+		// GET api/battle/list
+		[HttpGet("list")]
+		public async Task<ActionResult<IEnumerable<Battle>>> GetBattleList()
+		{
+			return await _dbContext.Battles.ToListAsync();
+		}
 
-		// GET api/tank/{id}
-		[HttpGet("{id}")]
-		public async Task<ActionResult<Battle>> GetBattle(int id)
+		// GET api/battle/result/{id}
+		[HttpGet("result/{id}")]
+		public async Task<ActionResult<BattleResult>> GetBattleResult(int id)
 		{
 			var battle = await _dbContext.Battles.FindAsync(id);
 
 			if (battle == null)
 				return NotFound();
 
-			return battle;
+			var matches = await _dbContext.Matches.Where(x => x.BattleId == id).ToListAsync();
+
+			BattleResult battleResult = new BattleResult()
+			{
+				Name = battle.Name,
+				MatchCount = matches.Count(),
+				Team1Wins = matches.Count(x => x.Winner == 1),
+				Team2Wins = matches.Count(x => x.Winner == 2),
+				Matches = matches.ToArray()
+			};
+
+			return battleResult;
 		}
 	}
 }

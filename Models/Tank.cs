@@ -26,15 +26,20 @@ namespace TankWars.Models
 		[Range(1, 100)]
 		public int Shield { get; private set; }
 
+		[Required]
+		[Range(1, 100)]
+		public int Range { get; private set; }
+
 		private int health;
 
-		public Tank(string name, int speed, int accuracy, int maxAmmo, int shield)
+		public Tank(string name, int speed, int accuracy, int maxAmmo, int shield, int range)
 		{
 			this.Name = name;
 			this.Speed = speed;
 			this.Accuracy = accuracy;
 			this.MaxAmmo = maxAmmo;
 			this.Shield = shield;
+			this.Range = range;
 
 			this.health = shield;
 		}

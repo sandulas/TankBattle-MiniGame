@@ -9,25 +9,23 @@ namespace TankWars.Models
 		public int Id { get; private set; }
 
 		[Required]
-		public Battle Battle { get; private set; }
+		public int BattleId { get; private set; }
 
 		[Required]
-		public Tank Team1Tank { get; private set; }
+		public int Team1TankId { get; private set; }
 
 		[Required]
-		public Tank Team2Tank { get; private set; }
+		public int Team2TankId { get; private set; }
 
 		[Required]
 		[Range(1, 2)]
 		public int Winner { get; private set; }
 
-		public Match() { }
-
-		public Match(Battle battle, Tank team1Tank, Tank team2Tank, int winner)
+		public Match(int battleId, int team1TankId, int team2TankId, int winner)
 		{
-			this.Battle = battle;
-			this.Team1Tank = team1Tank;
-			this.Team2Tank = team2Tank;
+			this.BattleId = battleId;
+			this.Team1TankId = team1TankId;
+			this.Team2TankId = team2TankId;
 			this.Winner = winner;
 		}
 	}
