@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace TankWars.Models
 {
@@ -31,6 +33,8 @@ namespace TankWars.Models
 		public int Range { get; private set; }
 
 		private int health;
+		private int ammo;
+		private Vector2 position;
 
 		public Tank(string name, int speed, int accuracy, int maxAmmo, int shield, int range)
 		{
@@ -47,6 +51,13 @@ namespace TankWars.Models
 		public void TakeHit()
 		{
 			if (health > 0) health--;
+		}
+
+		public bool Shoot()
+		{
+			if (ammo > 0) ammo--;
+
+			return new Random().NextDouble() < 0.5f;
 		}
 	}
 }
