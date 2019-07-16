@@ -31,6 +31,9 @@ namespace TankWars.Controllers
 		[HttpPost("simulate")]
 		public async Task<ActionResult<BattleRequest>> SimulateBattle(BattleRequest battleRequest)
 		{
+			if (battleRequest.Team1TankIds.Length == 0 || battleRequest.Team2TankIds.Length == 0)
+				return BadRequest();
+
 			foreach (int tankId in battleRequest.Team1TankIds)
 			{
 				if (await _dbContext.Tanks.FindAsync(tankId) == null) return NotFound(new { tankId });
@@ -41,17 +44,9 @@ namespace TankWars.Controllers
 				if (await _dbContext.Tanks.FindAsync(tankId) == null) return NotFound(new { tankId });
 			}
 
-			Battle battle = new Battle(battleRequest.Name);
+			BattleSimulator battleSimulator = new BattleSimulator(_dbContext, battleRequest);
 
-			_dbContext.Battles.Add(battle);
-			await _dbContext.SaveChangesAsync();
-
-			Match match1 = new Match(battle.Id, battleRequest.Team1TankIds[0], battleRequest.Team2TankIds[0], 1);
-			Match match2 = new Match(battle.Id, battleRequest.Team1TankIds[0], battleRequest.Team2TankIds[0], 1);
-
-			_dbContext.Matches.Add(match1);
-			_dbContext.Matches.Add(match2);
-			await _dbContext.SaveChangesAsync();
+			Battle battle = await battleSimulator.SimulateAsync();
 
 			return CreatedAtAction(nameof(GetBattleResult), new { id = battle.Id }, battle);
 		}
