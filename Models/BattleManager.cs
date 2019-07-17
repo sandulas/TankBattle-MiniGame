@@ -36,11 +36,10 @@ namespace TankWars.Models
 				tank2Ix++;
 				if (tank2Ix >= battleRequest.Team2TankIds.Length)
 					tank2Ix = 0;
+					
+				var winner = new MatchSimulator(new Map(), tank1, tank2).Simulate();
 
-				var matchSimulator = new MatchSimulator(battle.Id, tank1, tank2);
-				var match = matchSimulator.Simulate();
-
-				_dbContext.Matches.Add(match);
+				_dbContext.Matches.Add(new Match(battle.Id, tank1.Id, tank2.Id, winner));
 				await _dbContext.SaveChangesAsync();
 			}
 

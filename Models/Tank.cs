@@ -73,5 +73,7 @@ namespace TankWars.Models
 		public void SetPosition(Vector2 position) { this.position = position; }
 
 		public int GetAmmo() { return ammo; }
+
+		public void Reload() { ammo = MaxAmmo; }
 	}
 }

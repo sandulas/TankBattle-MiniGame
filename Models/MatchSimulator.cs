@@ -1,37 +1,32 @@
-﻿using System.Threading.Tasks;
-
-namespace TankWars.Models
+﻿namespace TankWars.Models
 {
 	public class MatchSimulator
 	{
 		private const int maxSteps = 10000;
+		private const float minRange = 20, maxRange = 100;
 
-		private int battleId;
+		private Map map;
 		private Tank tank1;
 		private Tank tank2;
 
-		public MatchSimulator(int battleId, Tank tank1, Tank tank2)
+		public MatchSimulator(Map map, Tank tank1, Tank tank2)
 		{
-			this.battleId = battleId;
+			this.map = map;
 			this.tank1 = tank1;
 			this.tank2 = tank2;
 		}
 
-		public Match Simulate()
+		public int Simulate()
 		{
-			int winner = doSimulation();
-			return new Match(battleId, tank1.Id, tank2.Id, winner);
-		}
+			tank1.SetPosition(map.StartPosition1);
+			tank2.SetPosition(map.StartPosition2);
 
-		private int doSimulation()
-		{
 			int steps = 0;
 			int winner;
 
 			while (true)
 			{
-				if (tank1.Shoot()) tank2.TakeHit();
-				if (tank2.Shoot()) tank1.TakeHit();
+				doSimulationStep();
 
 				// match is over, at least one tank is destroyed
 				if (tank1.GetHealth() == 0 || tank2.GetHealth() == 0)
@@ -47,6 +42,12 @@ namespace TankWars.Models
 				steps++;
 				if (steps > maxSteps) return 0;
 			}
+		}
+
+		private void doSimulationStep()
+		{
+			if (tank1.Shoot()) tank2.TakeHit();
+			if (tank2.Shoot()) tank1.TakeHit();
 		}
 	}
 }
