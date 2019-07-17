@@ -33,8 +33,8 @@ namespace TankWars.Models
 		public int Range { get; private set; }
 
 		private int health;
-		private int ammo;
 		private Vector2 position;
+		private int ammo;
 
 		public Tank(string name, int speed, int accuracy, int maxAmmo, int shield, int range)
 		{
@@ -44,20 +44,34 @@ namespace TankWars.Models
 			this.MaxAmmo = maxAmmo;
 			this.Shield = shield;
 			this.Range = range;
+		}
 
-			this.health = shield;
+		public void Init()
+		{
+			this.health = Shield;
+			this.ammo = MaxAmmo;
 		}
 
 		public void TakeHit()
 		{
 			if (health > 0) health--;
+			else throw new Exception("Tank already destroyed, the match should have ended.");
 		}
 
 		public bool Shoot()
 		{
+			if (ammo == 0) return false;
+
 			if (ammo > 0) ammo--;
 
-			return new Random().NextDouble() < 0.5f;
+			return new Random().Next(100) < Accuracy;
 		}
+
+		public int GetHealth() { return health; }
+
+		public Vector2 GetPosition() { return position; }
+		public void SetPosition(Vector2 position) { this.position = position; }
+
+		public int GetAmmo() { return ammo; }
 	}
 }

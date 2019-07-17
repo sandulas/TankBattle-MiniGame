@@ -18,7 +18,7 @@ namespace TankWars.Models
 		public int Team2TankId { get; private set; }
 
 		[Required]
-		[Range(1, 2)]
+		[Range(0, 2)]
 		public int Winner { get; private set; }
 
 		public Match(int battleId, int team1TankId, int team2TankId, int winner)

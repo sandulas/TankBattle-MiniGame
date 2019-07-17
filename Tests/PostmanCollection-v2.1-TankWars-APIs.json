@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "f1b0fc92-4501-4f02-b65e-76e3f66aef12",
+		"name": "TankWars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Battle",
+			"item": [
+				{
+					"name": "Battle - Simulate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Battle 1\",\n\t\"Team1TankIds\": [1],\n\t\"Team2TankIds\": [2],\n\t\"MatchCount\": 10\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/battle/simulate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"battle",
+								"simulate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Battle - List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/battle/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"battle",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Battle - Result",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/battle/result/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"battle",
+								"result",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tank",
+			"item": [
+				{
+					"name": "Tank - Add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Tank 3\",\n\t\"speed\": 1,\n\t\"accuracy\": 50,\n\t\"maxAmmo\": 100,\n\t\"shield\": 30,\n\t\"range\": 80\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/tank",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tank"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tank - List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/tank/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tank",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tank - Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/tank/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tank",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tank - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/tank/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tank",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

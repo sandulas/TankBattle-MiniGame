@@ -44,9 +44,9 @@ namespace TankWars.Controllers
 				if (await _dbContext.Tanks.FindAsync(tankId) == null) return NotFound(new { tankId });
 			}
 
-			BattleSimulator battleSimulator = new BattleSimulator(_dbContext, battleRequest);
+			BattleManager battleManager = new BattleManager(_dbContext, battleRequest);
 
-			Battle battle = await battleSimulator.SimulateAsync();
+			Battle battle = await battleManager.SimulateAsync();
 
 			return CreatedAtAction(nameof(GetBattleResult), new { id = battle.Id }, battle);
 		}
