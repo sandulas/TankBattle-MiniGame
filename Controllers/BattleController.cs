@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,27 @@ namespace TankWars.Controllers
 		[HttpGet]
 		public ActionResult<string> Welcome()
 		{
-			return $@"Welcome to the Battle API.";
+			string response = "";
+
+			float t;
+
+			t = Tools.PointToSegmentDistance(new Vector2(-1, 0), new Vector2(0, 0), new Vector2(3, 3));
+			response += t.ToString() + ", ";
+
+			t = Tools.PointToSegmentDistance(new Vector2(1, 0), new Vector2(0, 0), new Vector2(3, 3));
+			response += t.ToString() + ", ";
+
+			t = Tools.PointToSegmentDistance(new Vector2(2, 0), new Vector2(0, 0), new Vector2(3, 3));
+			response += t.ToString() + ", ";
+
+			t = Tools.PointToSegmentDistance(new Vector2(6, 0), new Vector2(0, 0), new Vector2(3, 3));
+			response += t.ToString() + ", ";
+
+			t = Tools.PointToSegmentDistance(new Vector2(7, 0), new Vector2(0, 0), new Vector2(3, 3));
+			response += t.ToString() + ", " + Vector2.Distance(new Vector2(7, 0), new Vector2(3, 3));
+
+			return response;
+			//return $@"Welcome to the Battle API.";
 		}
 
 		// POST api/battle/simulate

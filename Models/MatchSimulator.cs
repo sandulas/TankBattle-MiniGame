@@ -1,4 +1,7 @@
-﻿namespace TankWars.Models
+﻿using System;
+using System.Numerics;
+
+namespace TankWars.Models
 {
 	public class MatchSimulator
 	{
