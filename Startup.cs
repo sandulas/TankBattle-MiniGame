@@ -10,6 +10,8 @@ namespace TankWars
 {
 	public class Startup
 	{
+
+
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -20,7 +22,10 @@ namespace TankWars
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<TankWarsDbContext>(options => options.UseSqlite("Filename=Data/TankWars.db"));
+			var contentRoot = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
+			var connectionString = $@"Filename={contentRoot}/Data/TankWars.db";
+
+			services.AddDbContext<TankWarsDbContext>(options => options.UseSqlite(connectionString));
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
 

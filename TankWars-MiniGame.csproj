@@ -12,4 +12,15 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Properties\PublishProfiles\FolderProfile 1.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\TankWars.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
