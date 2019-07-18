@@ -25,9 +25,25 @@ namespace TankWars.Models
 			}
 		}
 
+		public static Vector2 RotateVector2(Vector2 vector, float degrees)
+		{
+			Vector2 result;
+			double angleRadians = Radians(degrees);
+
+			result.X = (float)(vector.X * Math.Cos(angleRadians) - vector.Y * Math.Sin(angleRadians));
+			result.Y = (float)(vector.X * Math.Sin(angleRadians) + vector.Y * Math.Cos(angleRadians));
+
+			return result;
+		}
+
 		public static float Sqr(float number)
 		{
 			return number * number;
+		}
+
+		public static double Radians(float angleInDegrees)
+		{
+			return Math.PI / 180 * angleInDegrees;
 		}
 	}
 }

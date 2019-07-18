@@ -25,27 +25,7 @@ namespace TankWars.Controllers
 		[HttpGet]
 		public ActionResult<string> Welcome()
 		{
-			string response = "";
-
-			float t;
-
-			t = Tools.PointToSegmentDistance(new Vector2(-1, 0), new Vector2(0, 0), new Vector2(3, 3));
-			response += t.ToString() + ", ";
-
-			t = Tools.PointToSegmentDistance(new Vector2(1, 0), new Vector2(0, 0), new Vector2(3, 3));
-			response += t.ToString() + ", ";
-
-			t = Tools.PointToSegmentDistance(new Vector2(2, 0), new Vector2(0, 0), new Vector2(3, 3));
-			response += t.ToString() + ", ";
-
-			t = Tools.PointToSegmentDistance(new Vector2(6, 0), new Vector2(0, 0), new Vector2(3, 3));
-			response += t.ToString() + ", ";
-
-			t = Tools.PointToSegmentDistance(new Vector2(7, 0), new Vector2(0, 0), new Vector2(3, 3));
-			response += t.ToString() + ", " + Vector2.Distance(new Vector2(7, 0), new Vector2(3, 3));
-
-			return response;
-			//return $@"Welcome to the Battle API.";
+			return $@"Welcome to the Battle API.";
 		}
 
 		// POST api/battle/simulate
@@ -54,17 +34,7 @@ namespace TankWars.Controllers
 		{
 			if (battleRequest.Team1TankIds.Length == 0 || battleRequest.Team2TankIds.Length == 0)
 				return BadRequest();
-
-			//foreach (int tankId in battleRequest.Team1TankIds)
-			//{
-			//	if (await _dbContext.Tanks.FindAsync(tankId) == null) return NotFound(new { tankId });
-			//}
-
-			//foreach (int tankId in battleRequest.Team2TankIds)
-			//{
-			//	if (await _dbContext.Tanks.FindAsync(tankId) == null) return NotFound(new { tankId });
-			//}
-
+				
 			BattleManager battleManager = new BattleManager(_dbContext, battleRequest);
 
 			Battle battle = await battleManager.SimulateAsync();

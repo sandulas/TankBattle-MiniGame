@@ -9,7 +9,7 @@ namespace TankWars.Models
 		private const int mapSize = 140; // the map is a square, the size is the side of the square
 		private const int cellSize = 20; //the map is divided into a grid of square cells
 		private const float tankRadius = 2.5f; // the tank is represented as a circle
-		private const int obstacleProbability = 50; // likelihood of an ostacle being created
+		private const int obstacleProbability = 80; // likelihood of an ostacle being created
 
 		public int Size { get; }
 		public List<Obstacle> Obstacles { get; }
@@ -64,6 +64,18 @@ namespace TankWars.Models
 			row = random.Next(evenCellCount / 2, evenCellCount) * 2; // set StartPosition2 in the bottom half of the map
 			column = random.Next(evenCellCount) * 2;
 			StartPosition2 = new Vector2((column + 0.5f) * cellSize, (row + 0.5f) * cellSize);
+		}
+
+		// if there is an obstacle between position and target return the distance from the path to the center of the obstacle; if not, return null;
+		public float? GetObstacleDistance(Vector2 position, Vector2 target)
+		{
+			foreach (Obstacle obstacle in Obstacles)
+			{
+				var distance = Tools.PointToSegmentDistance(obstacle.Center, position, target);
+				if (distance < obstacle.Radius + tankRadius) return distance;
+			}
+
+			return null;
 		}
 	}
 }

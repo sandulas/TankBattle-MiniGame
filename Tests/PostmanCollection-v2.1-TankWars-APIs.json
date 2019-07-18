@@ -9,6 +9,26 @@
 			"name": "Battle",
 			"item": [
 				{
+					"name": "Battle - Welcome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/battle",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"battle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Battle - Simulate",
 					"request": {
 						"method": "POST",
@@ -102,7 +122,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Tank 3\",\n\t\"speed\": 1,\n\t\"accuracy\": 50,\n\t\"maxAmmo\": 100,\n\t\"shield\": 30,\n\t\"range\": 80\n}"
+							"raw": "{\n\t\"name\": \"Tank 1\",\n\t\"speed\": 100,\n\t\"accuracy\": 50,\n\t\"maxAmmo\": 50,\n\t\"shield\": 40,\n\t\"range\": 20\n}"
 						},
 						"url": {
 							"raw": "http://localhost:5000/api/tank",
